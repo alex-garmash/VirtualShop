@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">Please sign up </h3>
+                </div>
+                <div class="panel-body">
+                    <div *ngIf="step; else step2">
+                        <form #myForm="ngForm">
+                            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12 offset-5">
+                            <p>Step 1 of 2</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="ID">ID</label>
+                                <input type="text" name="ID" id="ID" class="form-control input-sm" placeholder="ID" [(ngModel)]="ID" #IDV="ngModel" required="required">
+                                <div class="alert alert-danger" *ngIf="IDV.touched && IDV.invalid" >
+                                    <p>Required ID!</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control input-sm"
+                                       placeholder="Email Address"
+                                       required="required" [(ngModel)]="email" #emailV="ngModel">
+                                <div class="alert alert-danger" *ngIf="emailV.touched && emailV.invalid" >
+                                    <p>Required email!</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control input-sm"
+                                               placeholder="Password" [(ngModel)]="password" #passwordV="ngModel" required="required">
+                                        <div class="alert alert-danger" *ngIf="passwordV.touched && passwordV.invalid">
+                                            <p>Required password!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Confirm Password</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation"
+                                               class="form-control input-sm" placeholder="Confirm Password" [(ngModel)]="passwordConfirmation" #password_confirmationV="ngModel" required="required">
+                                        <div class="alert alert-danger" *ngIf="password_confirmationV.touched && password_confirmationV.invalid">
+                                            <p>Required confirm password!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="notice != ''">
+                                <p>{{notice}}</p>
+                            </div>
+                            <input type="button" (click)="registrationStepOne()" value="Register"
+                                   class="btn btn-info btn-block" [disabled]="myForm.form.invalid">
+                        </form>
+                    </div>
+                    <ng-template #step2>
+                        <form #myForm2="ngForm">
+                            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12 offset-5">
+                                <p>Step 2 of 2</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Select City:</label>
+                                <select class="form-control" id="city" name="selection" [(ngModel)]="city" #selectionV="ngModel" required="required">
+                                    <!--<option value="Select City" selected>Select City</option>-->
+                                    <option value="{{city.name}}" *ngFor="let city of cities">{{city.name}}</option>
+                                </select>
+                                <div class="alert alert-danger" *ngIf="selectionV.touched && selectionV.invalid">
+                                    <p>City Required!</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="street">Street</label>
+                                <input type="text" name="street" id="street" class="form-control input-sm"
+                                       placeholder="Street Address" [(ngModel)]="street" #streetV="ngModel" required="required">
+                                <div class="alert alert-danger" *ngIf="streetV.touched && streetV.invalid">
+                                    <p>Required Street!</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" name="firstName" id="firstName" class="form-control input-sm"
+                                       placeholder="First Name" [(ngModel)]="firstName" #firstNameV="ngModel" required="required">
+                                <div class="alert alert-danger" *ngIf="firstNameV.touched && firstNameV.invalid">
+                                    <p>Required First Name!</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" name="lastName" id="lastName" class="form-control input-sm"
+                                       placeholder="Last Name" [(ngModel)]="lastName" #lastNameV="ngModel" required="required">
+                                <div class="alert alert-danger" *ngIf="lastNameV.touched && lastNameV.invalid">
+                                    <p>Required Last Name!</p>
+                                </div>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="notice != ''">
+                                <p>{{notice}}</p>
+                            </div>
+                            <input type="button" (click)="registrationStepTwo()" value="Submit"
+                                   class="btn btn-info btn-block" [disabled]="myForm2.invalid">
+                        </form>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+{
+  "env": {
+    "JWT_KEY": "KJfklsbwe7*(9934rnkasnakclaeedfj#$%^JJJJ"
+  },
+  "ignore": "data/*.json"
+}

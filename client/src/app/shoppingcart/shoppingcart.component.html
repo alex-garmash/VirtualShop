@@ -1,0 +1,217 @@
+<div class="search" *ngIf="token != null">
+  <label for="search">Search Product </label>
+  <input type="text" id="search" placeholder="" [(ngModel)]="search">
+  <button class="btn btn-info" (click)="searchProducts()">Search</button>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="ctr">
+        <div>
+          <div *ngIf="user != null">
+            <div *ngIf="user.role != 'Administrator'; else adminCart">
+              <div class="head">
+                <h4>My cart</h4>
+                <!-- Buttons show/hide cart -->
+                <div *ngIf="hidenBar; else hide" (click)="hideBar(false)">
+                  <button class="btn btn-info">
+                    <i class="material-icons">arrow_forward_ios</i>
+                  </button>
+                </div>
+                <ng-template #hide>
+                  <button class="btn btn-info" (click)="hideBar(true)">
+                    <i class="material-icons">arrow_back_ios</i>
+                  </button>
+                </ng-template>
+                <!-- Buttons show/hide cart END-->
+              </div>
+            </div>
+            <!-- Admin Cart -->
+            <ng-template #adminCart>
+              <div class="my-cart">
+                <h4>{{product.productName}}</h4>
+                <button class="btn btn-info addNewProduct" (click)="ProductResetFields()">
+                  <i class="material-icons">add_circle_outline</i>
+                </button>
+              </div>
+              <form #myForm="ngForm" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="productName">Product Name:</label>
+                  <input type="text" class="form-control" id="productName" name="productName" required
+                         [(ngModel)]="product.productName"
+                         #productNameV="ngModel">
+                </div>
+                <div class="alert alert-danger" *ngIf="productNameV.touched && productNameV.invalid">
+                  <p>Required Product Name!</p>
+                </div>
+                <div class="form-group">
+                  <label for="productPrice">Product Price:</label>
+                  <input type="text" class="form-control" id="productPrice" name="productPrice"
+                         required [(ngModel)]="product.productPrice"
+                         #productPriceV="ngModel">
+                </div>
+                <div class="alert alert-danger" *ngIf="productPriceV.touched && productPriceV.invalid">
+                  <p>Required Product Price!</p>
+                </div>
+
+                <div class="form-group">
+                  <label for="picture">Picture:</label>
+                  <div *ngIf="product.productPicture == '' && previewImage == '' ; else imageShow">
+                    <img class="previewImage" src="http://localhost:3000/api/uploads/no-thumb.png">
+                  </div>
+                  <ng-template #imageShow>
+                    <div *ngIf="previewImage == ''; else imagePreview">
+                      <img class="previewImage" src="http://localhost:3000/api/uploads/{{product.productPicture}}">
+                    </div>
+                    <ng-template #imagePreview>
+                      <img class="previewImage" src="{{previewImage}}">
+                    </ng-template>
+                  </ng-template>
+                  <input type="file" class="form-control" id="picture" name="picture"
+                         (ngModel)="product.productPicture" (change)="readPicture($event)"
+                         #productPictureV="ngModel">
+                </div>
+                <div class="alert alert-danger"
+                     *ngIf="productPictureV.touched && productPictureV.invalid">
+                  <p>Required Picture </p>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="category">Category:</label>
+                  <input type="text" class="form-control" id="category" name="category" required
+                         [(ngModel)]="product.productCategoryName"
+                         #productCategoryV="ngModel">
+                </div>
+                <div class="alert alert-danger"
+                     *ngIf="productCategoryV.touched && productCategoryV.invalid">
+                  <p>Required Category!</p>
+                </div>
+
+                <div class="alert alert-danger" *ngIf="notice != ''">
+                  <p>{{notice}}</p>
+                </div>
+                <div *ngIf="product.productId != null; else create">
+                  <button type="button" class="btn btn-success btn-save"  (click)="editProduct()">
+                    Save
+                  </button>
+                </div>
+                <ng-template #create>
+                  <button type="button" class="btn btn-success btn-save" (click)="createNewProduct()">
+                    Save
+                  </button>
+                </ng-template>
+              </form>
+            </ng-template>
+            <!-- Admin Cart END -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart -->
+      <div *ngIf="!hidenBar && user.role != 'Administrator'">
+        <div class="ctr">
+          <div class="scroll" *ngIf="shoppingCart != null">
+            <div>
+              <div class="item" *ngFor="let item of shoppingCart.cartItems">
+                <div class="shop shop-card">
+                  <div class="card-body">
+                    <img class="cartImg" src="http://localhost:3000/api/uploads/{{item.product.url_img}}">
+                    <h5>Name: {{item.product.name}}</h5>
+                    <h5>Cost: {{item.product.price}}$</h5>
+                    <h5>Amount: {{item.amount}}</h5>
+                  </div>
+                  <div class="deleteItem">
+                    <button (click)="removeItem(item._id, shoppingCart.shoppingCart.result._id)"><i class="material-icons md-18">
+                      highlight_off
+                    </i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom">
+              <h5 *ngIf="shoppingCart != null ; else totalZero">
+                Total: {{shoppingCart.shoppingCart.totalPrice}}$
+              </h5>
+              <div *ngIf="shoppingCart.cartItems.length > 0">
+                <a class="nav-link" routerLink="/order">Order</a>
+                <ng-template #totalZero>
+                  <h5>Total: 0$</h5>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart END -->
+    </div>
+    <!-- Right Side -->
+    <div class="col-md-10">
+      <div class="">
+        <div *ngIf="categories != null; else noCategories">
+          <div class="menu">
+            <button type="button" class="btn btn-success" (click)="filterCategory('All')">All</button>
+            <span *ngIf="search == ''">
+                        <span *ngFor="let category of categories">
+        <button type="button" class="btn btn-success" (click)="filterCategory(category.name)">{{category.name}}</button>
+                          </span>
+        </span>
+          </div>
+        </div>
+        <ng-template #noCategories>
+          <div class="menu"><span></span></div>
+        </ng-template>
+      </div>
+      <div *ngIf="!hidenBar">
+        <div *ngIf="products != null">
+          <div *ngIf="user != null">
+            <div class="shop" *ngIf="user.role != 'Administrator' ; else admin">
+              <div class="ctr-card" *ngFor="let product of products"
+                   (click)="openDialog({product: product, userId: user.id})">
+                <div class="card-body">
+                  <img class="shopImage" src="http://localhost:3000/api/uploads/{{product.url_img}}">
+                  <span>Cost: {{product.price}}$</span>
+                  <span>Name: {{product.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Admin Cart -->
+    <ng-template #admin>
+      <div class="shop" *ngFor="let product of products" (click)="getProductById(product._id)">
+        <div class="ctr-card">
+          <div class="card-body">
+            <img class="shopImage" src="http://localhost:3000/api/uploads/{{product.url_img}}">
+            <span>Cost: {{product.price}}</span>
+            <span>Name: {{product.name}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <!-- Admin Cart END-->
+    <!-- Without Cart -->
+    <div *ngIf="hidenBar">
+      <div *ngIf="products != null">
+        <div *ngIf="user != null">
+          <div class="shop" *ngIf="user.role != 'Administrator'">
+            <div class="ctr-card" *ngFor="let product of products"
+                 (click)="openDialog({product: product, userId: user.id})">
+              <div class="card-body">
+                <img class="shopImage" src="http://localhost:3000/api/uploads/{{product.url_img}}">
+                <span>Cost: {{product.price}}$</span>
+                <span>Name: {{product.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Without Cart END-->
+  </div>
+</div>
+

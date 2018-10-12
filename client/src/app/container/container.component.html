@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 center">
+      <img src="../../assets/shopping.jpg">
+      <div>
+        <p>Available products in our store: {{numbersOfProducts}}</p>
+      </div>
+      <div>
+        <p>Number of orders submitted in our store: {{numbersOfOrders}}</p>
+      </div>
+      <div *ngIf="notice != ''">
+        <h3>Notification:</h3>
+        <p>{{notice}}</p>
+      </div>
+    </div>
+
+  </div>
+</div>

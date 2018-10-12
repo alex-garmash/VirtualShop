@@ -1,0 +1,118 @@
+.head{
+  display: flex;
+  justify-content: space-between;
+}
+.ctr{
+  background-color: #C6E746;
+  border-style: groove;
+}
+.my-cart{
+  display: flex;
+  justify-content: space-between;
+  border-bottom-style: groove;
+}
+.bottom{
+  border-style: groove;
+  background-color: green;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn-save{
+  width: 100%;
+}
+.btn-save:hover{
+  background-color: green;
+}
+
+.hideCart{
+  width: 10px;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+}
+.cart .ctr-card{
+  float: left;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 200px;
+}
+.ctr-card:hover{
+  cursor: pointer;
+  border: solid;
+  background-color: #C6E746;
+}
+.previewImage{
+  height: 100px;
+  width: 100px;
+}
+.cartImg{
+  height: 80px;
+  width: 80px;
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.deleteItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.material-icons.md-18 { font-size: 48px; }
+.material-icons.md-18:hover{
+    color: red;
+}
+
+.menu{
+  background-color: #C6E746;
+  border-style: groove;
+  display: flex;
+  justify-content: center;
+}
+button{
+  background: none;
+  color: black;
+  border-style: none;
+}
+button:hover{
+  cursor: pointer;
+}
+.shop > .ctr-card{
+  float: left;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 200px;
+}
+
+.shopImage{
+  height: 100px;
+  width: 100px;
+}
+
+a{
+  color: black;
+  text-decoration: underline;
+}
+a:hover{
+  color: white;
+}
+a:link{
+  font-size: 20px;
+}
+
+.search{
+  background-color: lightgray;
+  margin-bottom: 5px;
+}
+.mark{
+  background-color: yellow;
+}

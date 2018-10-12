@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Add number of items</h2>
+<mat-dialog-content [formGroup]="form">
+    <input type="number" min="1" value="1" name="count" placeholder="1" matInput formControlName="count">
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="save(data)">Save</button>
+  <button mat-button (click)="close()">Cancel</button>
+</mat-dialog-actions>

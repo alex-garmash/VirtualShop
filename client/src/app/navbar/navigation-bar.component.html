@@ -1,0 +1,34 @@
+<nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <nav>
+                    <div class="left-nav">
+                        <a class="nav-link" routerLink="/"><img src="../../assets/logo.png" alt="Home Page"
+                                                                class="logo"></a>
+
+                        <!--<a class="nav-link" routerLink="registration">Registration</a>-->
+                        <!--<a class="nav-link" routerLink="shop">Shop</a>-->
+                        <!--<div class="search" *ngIf="token != null">-->
+                            <!--<label for="search">Search Product </label>-->
+                            <!--<input type="text" id="search" placeholder="product name">-->
+                            <!--<button class="btn btn-info">Search</button>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="right-nav">
+                        <div>
+                            <span>Contact: </span>
+                            <span> email: mail@gmail.com</span>
+                            <span> phone: 050-000000</span>
+                        </div>
+                        <div *ngIf="token != null; else notLogged" class="user">
+                            <span>Hello {{token.user.first_name}} {{token.user.last_name}} <a class="nav-link" href="#" (click)="logOut()">Logout</a></span>
+                        </div>
+                        <ng-template #notLogged><span>Hello Guest</span></ng-template>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="!logged; else userLogged">
+      <div class="col-md-12">
+        <div class="signin-form">
+          <form #myForm="ngForm">
+            <h2 class="text-center">Sign in</h2>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control input-lg" id="email" name="username" placeholder="Username"
+                     required="required" [(ngModel)]="email" #emailV="ngModel" [disabled]="logged">
+            </div>
+            <div class="alert alert-danger" *ngIf="emailV.touched && emailV.invalid && !logged">
+              <p>Required email!</p>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password"
+                     required="required" [(ngModel)]="password" #passwordV="ngModel" [disabled]="logged">
+            </div>
+            <div class="alert alert-danger" *ngIf="passwordV.touched && passwordV.invalid && !logged">
+              <p>Required password!</p>
+            </div>
+            <div class="alert alert-danger" *ngIf="notice != ''">
+              <p>{{notice}}</p>
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-success btn-lg btn-block signup-btn" (click)="login()" [disabled]="logged">Sign in
+              </button>
+            </div>
+          </form>
+          <div class="text-center small">Don't have an account? <a routerLink="registration">Sign up</a></div>
+        </div>
+      </div>
+    </div>
+    <ng-template #userLogged>
+      <div class="col-lg-2">
+          <a class="nav-link" routerLink="shop"><button class="btn btn-success">{{btnName}}</button></a>
+      </div>
+    </ng-template>
+  </div>
+</div>
+

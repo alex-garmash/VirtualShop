@@ -1,0 +1,92 @@
+<div class="search" *ngIf="token != null">
+  <label for="search">Search Product </label>
+  <input type="text" id="search" placeholder="" [(ngModel)]="search">
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="ctr">
+        <div class="scroll">
+
+          <div class="title">
+            <h3>My Cart</h3>
+            <!--<button class="btn btn-info">Back to shop</button>-->
+            <a class="nav-link underLine" routerLink="/shop">back to shop</a>
+          </div>
+          <div *ngIf="shoppingCart != null">
+            <div class="item" *ngFor="let item of shoppingCart.cartItems">
+              <div>
+                <img class="image" src="http://localhost:3000/api/uploads/{{item.product.url_img}}">
+                <div *ngIf="item.product.name.toLowerCase().indexOf(search.toLowerCase()) !== -1 && search !=''">
+                  <div class="name" ngClass="mark">Name: {{item.product.name}}</div>
+                </div>
+                <div *ngIf="item.product.name.toLowerCase().indexOf(search.toLowerCase()) === -1 || search ==''">
+                  <div class="name" >Name: {{item.product.name}}</div>
+                </div>
+                <div>Price: {{item.product.price}}$</div>
+              </div>
+            </div>
+            <div class="bottom">
+              <h3 *ngIf="shoppingCart != null ; else totalZero">
+                Total: {{shoppingCart.shoppingCart.totalPrice}}$</h3>
+              <div *ngIf="shoppingCart.cartItems.length > 0">
+                <ng-template #totalZero>
+                  <h5>Shopping cart empty</h5>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="ctr">
+        <div class="title">
+          <h3>Order</h3>
+        </div>
+        <div>
+          <form class="">
+            <div class="form-group col-md-11">
+              <div class="underLine">
+                <h4>Shopping Details:</h4>
+              </div>
+            </div>
+            <div class="form-group col-md-11 inline center">
+              <label class="control-label" for="city">City:</label>
+              <input class="form-control" type="text" id="city" name="city" [(ngModel)]='city' (dblclick)="getInputData('city')">
+            </div>
+            <div class="form-group col-md-11 inline">
+              <label for="street">Street:</label>
+              <input class="form-control" type="text" id="street" name="street" [(ngModel)]='street'
+                     (dblclick)="getInputData('street')">
+            </div>
+            <div class="form-group col-md-11 inline ">
+              <label for="shippingDate">Shipping Date:</label>
+              <input class="form-control" type="text" name="date" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' , containerClass: 'theme-red'}" bsDatepicker [(ngModel)]='date' id="shippingDate">
+            </div>
+            <div class="form-group col-md-11 inline ">
+            <div class="alert alert-danger" *ngIf="dateNotification != ''">
+              <p>{{dateNotification}}</p>
+            </div>
+            </div>
+            <div class="form-group col-md-11">
+              <div class="underLine">
+                <h4>Payments:</h4>
+              </div>
+              <div class="form-group inline">
+                <label for="pay">Payments:</label>
+                <input class="form-control" type="text" id="pay" name="pay" [(ngModel)]='creditCard'>
+              </div>
+              <div class="alert alert-danger" *ngIf="notice != ''">
+                <p>{{notice}}</p>
+              </div>
+              <div class="form-group inline">
+                <button type="button" class="btn btn-success orderBtn" (click)="order()">Order</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

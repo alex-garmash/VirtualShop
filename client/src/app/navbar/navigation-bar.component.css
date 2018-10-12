@@ -1,0 +1,35 @@
+nav {
+    background-color: lightgray;
+    /*margin-bottom: 10px;*/
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+}
+
+a {
+    display: inline-block;
+}
+
+.right-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.user{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.logo {
+    height: 33px;
+}
+/*.search{*/
+    /*display: flex;*/
+/*}*/
+label{
+    padding-right: 5px;
+    font-size: 26px;
+    height: auto;
+}
