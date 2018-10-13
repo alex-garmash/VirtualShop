@@ -35,7 +35,7 @@ $ npm install body-parser
 $ node app
 </code></pre>
 <h3><a id="Plugins_45"></a>Plugins</h3>
-<p>Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.</p>
+<p>Instructions on how to use them in your own application are linked below.</p>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
