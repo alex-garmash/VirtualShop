@@ -26,12 +26,7 @@
 <p>requires <a href="https://nodejs.org/">Node.js</a> v4+ to run server.</p>
 <p>Install the dependencies and devDependencies and start the server.</p>
 <pre><code class="language-sh">$ <span class="hljs-built_in">cd</span> server
-$ npm install express
-$ npm install mongoose
-$ npm install jsonwebtoken
-$ npm install multer
-$ npm install bcrypt
-$ npm install body-parser
+$ npm install
 $ node app
 </code></pre>
 <h3><a id="Plugins_45"></a>Plugins</h3>
